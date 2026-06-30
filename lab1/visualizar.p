@@ -24,21 +24,22 @@ try:
     ips_sospechosas = ssh_data.get("ips_sospechosas", [])
     
     if ips_sospechosas:
-        # Aquí configuramos para que extraiga hasta un Top 20 de IPs para que se vea lleno de datos
-        ips_ordenadas = sorted(ips_sospechosas, key=lambda x: x["intentos"], reverse=True)[:20]
+        # CAMBIO CLAVE: Cambiamos a [:15] para que muestre bastantes IPs en el gráfico
+        ips_ordenadas = sorted(ips_sospechosas, key=lambda x: x["intentos"], reverse=True)[:15]
         
         ips = [item["ip"] for item in ips_ordenadas]
         intentos = [item["intentos"] for item in ips_ordenadas]
 
+        # Estilo profesional de cuadrícula blanca
         sns.set_style("whitegrid")
         
-        # Generamos la paleta degradada para la cantidad exacta de IPs
+        # Generamos una paleta degradada basada en la cantidad exacta de IPs que entren
         custom_colors = sns.color_palette("flare_r", len(ips)) 
 
-        # Altura de (12, 8) para que quepan cómodamente muchas IPs
-        plt.figure(figsize=(12, 8)) 
+        # Ajustamos el tamaño a (11, 7) para que entren cómodamente muchas IPs sin amontonarse
+        plt.figure(figsize=(11, 7)) 
         
-        # Invertimos con [::-1] para la escalera perfecta
+        # Invertimos los datos con [::-1] para que la IP con MÁS intentos quede arriba del todo
         ax = sns.barplot(
             x=intentos[::-1], 
             y=ips[::-1], 
@@ -51,7 +52,7 @@ try:
         plt.xlabel("Número de Intentos", fontsize=12, fontweight='bold')
         plt.ylabel("Direcciones IP", fontsize=12, fontweight='bold')
         
-        ax.tick_params(axis='y', labelsize=9)
+        ax.tick_params(axis='y', labelsize=10)
         plt.tight_layout()
         
         grafica_ssh_path = os.path.join(GRAFICAS_DIR, "top_10_ssh_fallidos.png")
@@ -128,4 +129,3 @@ else:
     print("⚠️ No hay datos válidos procesados desde access.log para los gráficos.")
 
 print("\n🚀 ¡Todos los pasos de visualización completados con éxito!")
-
