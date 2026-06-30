@@ -5,12 +5,6 @@
 
 Este proyecto corresponde al desarrollo del **Lab1**, enfocado en el análisis de logs de un servidor Linux (SSH) y un servidor web (Apache), con el objetivo de detectar posibles ataques y generar visualizaciones.
 
-## Creacion de la maquina virtual
-
-![Imagen](lab1/evidencias/Creacion_maquina_1.png)
-![Imagen](lab1/evidencias/Creacion_maquina_2.png)
-![Imagen](lab1/evidencias/Creacion_maquina_3.png)
-![Imagen](lab1/evidencias/Creacion_maquina_4.png)
 ---
 
 ## Estructura del Proyecto
@@ -35,6 +29,12 @@ lab1/
 ````
 
 ---
+## Creacion de la maquina virtual
+
+![Imagen](lab1/evidencias/Creacion_maquina_1.png)
+![Imagen](lab1/evidencias/Creacion_maquina_2.png)
+![Imagen](lab1/evidencias/Creacion_maquina_3.png)
+![Imagen](lab1/evidencias/Creacion_maquina_4.png)
 
 ## Requisitos
 
@@ -212,13 +212,4 @@ Este laboratorio permite:
 **Jaqueline Huahuaccapa Ccama**
 Ingeniería de Sistemas – UPeU
 
-```
-
----
-
-Si quieres, en el siguiente paso te puedo hacer versión **más pro (nivel GitHub)** con:
-- badges
-- portada
-- imágenes de tus gráficas
-- y formato para que impresione al profesor 😎
 ```
