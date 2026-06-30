@@ -1,14 +1,19 @@
 "# examen-practico-huahuaccapa" 
-Aquí tienes tu **README.md completo en formato código listo para copiar y pegar sin modificar nada** 👇
 
 ````markdown
-# 🛡️ Laboratorio 1: Análisis Forense de Logs con Python
+# Laboratorio 1: Análisis Forense de Logs con Python
 
 Este proyecto corresponde al desarrollo del **Lab1**, enfocado en el análisis de logs de un servidor Linux (SSH) y un servidor web (Apache), con el objetivo de detectar posibles ataques y generar visualizaciones.
 
+## Creacion de la maquina virtual
+
+![Imagen](lab1/evidencias/Creacion_maquina_1.png)
+![Imagen](lab1/evidencias/Creacion_maquina_2.png)
+![Imagen](lab1/evidencias/Creacion_maquina_3.png)
+![Imagen](lab1/evidencias/Creacion_maquina_4.png)
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 Directorio: `~/examen-practico-huahuaccapa/lab1`
 
@@ -31,7 +36,7 @@ lab1/
 
 ---
 
-## ⚙️ Requisitos
+## Requisitos
 
 * Python 3
 * Librerías necesarias:
@@ -42,7 +47,7 @@ pip install matplotlib seaborn pandas
 ![Imagen](lab1/evidencias/instalacion%20de%20pandas.png)
 ---
 
-## 🚀 Ejecución del Proyecto
+## Ejecución del Proyecto
 
 ### 1. Dar permisos a los scripts
 
@@ -62,7 +67,7 @@ sudo python3 generar_ataques_falsos.py
 
 ### 3. Ejecutar análisis de logs
 
-#### 🔐 Análisis SSH
+#### Análisis SSH
 
 ```bash
 python3 analizar_ssh.py
@@ -76,7 +81,7 @@ python3 analizar_ssh.py
 
 ---
 ![Imagen](lab1/evidencias/Analisis.png)
-#### 🌐 Análisis Web
+#### Análisis Web
 
 ```bash
 python3 analizar_web.py
@@ -103,28 +108,31 @@ Se generan las siguientes gráficas en `graficas/`:
 
 ---
 
-## 📊 Descripción de Resultados
+##  Descripción de Resultados
 
-### 🔐 SSH (auth.log)
+###  SSH (auth.log)
 
 * Identificación de ataques de fuerza bruta
 * Ranking de IPs más sospechosas
 * Alertas automáticas por comportamiento anómalo
 
-### 🌐 WEB (access.log)
+![Imagen](lab1/evidencias/auth.png)
+
+###  WEB (access.log)
 
 * Detección de escaneo de directorios
 * Identificación de ataques SQL Injection
 * Análisis de tráfico HTTP por estado de respuesta
+![Imagen](lab1/evidencias/access.png)
 
-### 📉 Visualización
+###  Visualización
 
 * Análisis gráfico del comportamiento del servidor
 * Identificación rápida de patrones sospechosos
 
 ---
 
-## 📁 Archivos Generados
+##  Archivos Generados
 
 * `reporte_ssh.json` → Resultados del análisis SSH
 * `reporte_web.json` → Resultados del análisis WEB
@@ -132,15 +140,61 @@ Se generan las siguientes gráficas en `graficas/`:
 
 ---
 
-## 🧪 Evidencias
+##  Evidencias
 
 Las capturas y pruebas adicionales pueden almacenarse en:
 
 ```text
 evidencias/
 ```
-
+![Imagen](lab1/evidencias/reportejson.png)
+![Imagen](lab1/evidencias/heatmap_peticiones.png)
+![Imagen](lab1/evidencias/peticiones_por_hora.png)
 ---
+
+# Laboratorio 2: Reglas de Correlación en Wazuh
+
+Este directorio contiene la configuración y evidencias del Laboratorio 2, enfocado en la implementación de reglas de correlación personalizadas para la detección de ataques.
+
+# Creacion de la maquina virtual para Wazuh
+![Imagen](lab2/evidencias/Creacion_maquina_1.png)
+![Imagen](lab2/evidencias/Creacion_maquina_2.png)
+![Imagen](lab2/evidencias/Creacion_maquina_3.png)
+![Imagen](lab2/evidencias/Creacion_maquina_4.png)
+
+
+# Descargar e instalar el repositorio de Wazuh
+curl -sO https://packages.wazuh.com/4.9/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
+
+![Imagen](lab2/evidencias/instalacion%20de%20wazuh.png)
+![Imagen](lab2/evidencias/termino%20de%20instalacion%20de%20wazuh.png)
+
+    User: admin
+    Password: JMS.RFdRq80XQWVZ*Sa1naCDiHKkhy5N
+
+# Al finalizar, el comando te dará una contraseña para el dashboard. ¡Guárdala bien!
+
+# Entrar a la carpeta principal
+cd ~/examen-practico-huahuaccapa
+
+# Crear la carpeta lab2 y sus subdirectorios
+mkdir -p lab2/evidencia
+
+## Estructura de archivos
+- `local_rules_ssh.xml`: Regla para detección de fuerza bruta (10 fallos/60s).
+- `local_rules_exfil.xml`: Regla para detección de exfiltración de datos (>500MB).
+- `simular_bruteforce.sh`: Script para generar tráfico de prueba.
+- `network_traffic.csv`: Dataset para pruebas de correlación.
+- `evidencia/`: Capturas de pantalla de la validación del sistema.
+![Imagen](lab2/evidencias/poniendo%20las%20reglas.png)
+![Imagen](lab2/evidencias/creacion%20de%20las%20reglas.png)
+## Pasos de Ejecución
+1. Copiar reglas a Wazuh: `sudo cp *.xml /var/ossec/etc/rules/`
+2. Reiniciar Wazuh: `sudo systemctl restart wazuh-manager`
+3. Ejecutar simulación: `./simular_bruteforce.sh`
+![Imagen](lab2/evidencias/bruteforce.png)
+![Imagen](lab2/evidencias/simulacion%20bruteforce.png)
+
 
 ## 🎯 Conclusión
 
