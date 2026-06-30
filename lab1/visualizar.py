@@ -24,24 +24,30 @@ try:
     ips_sospechosas = ssh_data.get("ips_sospechosas", [])
     
     if ips_sospechosas:
-        ips = [item["ip"] for item in ips_sospechosas[:10]]
-        intentos = [item["intentos"] for item in ips_sospechosas[:10]]
+        # Forzar orden descendente por intentos
+        ips_ordenadas = sorted(ips_sospechosas, key=lambda x: x["intentos"], reverse=True)[:10]
+        
+        ips = [item["ip"] for item in ips_ordenadas]
+        intentos = [item["intentos"] for item in ips_ordenadas]
         
         plt.figure(figsize=(10, 5))
-        # Se asigna 'hue' para solucionar la advertencia de la biblioteca
-        sns.barplot(x=intentos, y=ips, hue=ips, palette="Reds_r", legend=False)
+        # Invertimos con [::-1] para que la barra más larga quede arriba del todo
+        sns.barplot(x=intentos[::-1], y=ips[::-1], hue=ips[::-1], palette="Reds_r", legend=False)
+        
         plt.title("Top 10 IPs con más intentos fallidos SSH")
         plt.xlabel("Número de Intentos")
+        plt.ylabel("Direcciones IP")
         plt.tight_layout()
         plt.savefig(os.path.join(GRAFICAS_DIR, "top_10_ssh_fallidos.png"))
         plt.close()
-        print("✔️ Gráfico 1 (Barras SSH) generado.")
+        print("✔️ Gráfico 1 (Barras SSH Ordenado) generado.")
 except Exception as e:
     print(f"⚠️ Error en Gráfico 1: {e}")
 
-# Parsing robusto de access.log para Gráficos 2 y 3
+# -------------------------------------------------------------------------
+# Procesamiento de access.log para Gráficos 2 y 3
+# -------------------------------------------------------------------------
 log_data = []
-# Captura la IP [grupo 1], la fecha [grupo 2] y el código de estado [grupo 3] de forma segura
 LOG_MINIMAL_REGEX = r'^(\S+) \S+ \S+ \[(.*?)\] ".*?" (\d{3})'
 
 if os.path.exists(ACCESS_LOG):
@@ -55,7 +61,7 @@ if os.path.exists(ACCESS_LOG):
                     dt = datetime.strptime(time_part, "%d/%b/%Y:%H:%M:%S")
                     log_data.append({"Hora": dt.hour, "Status": int(status)})
                 except Exception:
-                    continue # Omite líneas con formatos de fecha corruptos
+                    continue
 
 df = pd.DataFrame(log_data)
 
