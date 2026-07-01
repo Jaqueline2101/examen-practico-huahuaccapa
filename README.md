@@ -195,8 +195,49 @@ mkdir -p lab2/evidencia
 ![Imagen](lab2/evidencias/bruteforce.png)
 ![Imagen](lab2/evidencias/simulacion%20bruteforce.png)
 
+# Laboratorio 3: Detección de Anomalías con Machine Learning
 
-## 🎯 Conclusión
+Este repositorio contiene la implementación y el despliegue de un modelo de **Isolation Forest** diseñado para la detección de tráfico de red anómalo, desarrollado como parte de las actividades académicas de la carrera de Ingeniería de Sistemas en la Universidad Peruana Unión (UPeU).
+
+##  Descripción del Proyecto
+El objetivo de este laboratorio fue aplicar técnicas de ciencia de datos y aprendizaje no supervisado para identificar eventos de red inusuales dentro de un dataset de 10,000 registros capturados durante 30 días. El enfoque principal fue la creación de un pipeline de datos, desde la exploración hasta la puesta en producción.
+
+##  Tecnologías Utilizadas
+* **Lenguaje:** Python 3.x
+* **Librerías de ML/Análisis:** `pandas`, `scikit-learn`, `joblib`, `numpy`
+* **Visualización:** `matplotlib`, `seaborn`
+* **Entorno:** Jupyter Notebook, Windows PowerShell
+![Imagen](lab3/evidencias/pandas.png)
+##  Estructura del Pipeline
+El proyecto se divide en las siguientes etapas técnicas:
+
+1.  **Exploración y Preprocesamiento:** Carga de datos, limpieza de valores atípicos y creación de *features* clave (`ratio_bytes`, `bytes_por_segundo`).
+2.  **Normalización:** Aplicación de `StandardScaler` para estandarizar las variables numéricas y mejorar la convergencia del modelo.
+3.  **Entrenamiento:** Implementación del algoritmo **Isolation Forest** con un parámetro de contaminación del 5% (`contamination=0.05`).
+4.  **Evaluación:** Medición del rendimiento mediante `Precision`, `Recall`, `F1-Score` y análisis visual mediante matrices de confusión.
+5.  **Despliegue:** Serialización del modelo (`modelo_anomalias.pkl`) y el escalar (`scaler.pkl`) para su uso en scripts de producción.
+![Imagen](lab3/evidencias/skaler1.png)
+![Imagen](lab3/evidencias/skaler2.png)
+
+##  Archivos del Proyecto
+* `deteccion_anomalias.ipynb`: Notebook principal con toda la lógica de entrenamiento.
+* `predecir.py`: Script para inferencia en tiempo real sobre nuevos archivos CSV.
+* `modelo_anomalias.pkl`: Modelo entrenado serializado.
+* `scaler.pkl`: Objeto de normalización serializado.
+![Imagen](lab3/evidencias/Preparación%20y%20Visualización.png)
+![Imagen](lab3/evidencias/Tarea%203_1%20Exploración%20y%20Preprocesamiento.png)
+![Imagen](lab3/evidencias/Tarea%203_2%20Entrenamiento%20y%20Métricas.png)
+![Imagen](lab3/evidencias/Curva%20de%20Precisión_Recall.png)
+##  Uso del Script de Inferencia
+Para realizar predicciones sobre un nuevo log de red, utiliza el script `predecir.py` desde la terminal:
+
+```bash
+python predecir.py ruta/a/nuevo_log.csv
+
+![Imagen](lab3/evidencias/log.png)
+![Imagen](lab3/evidencias/los1.png)
+
+##  Conclusión:
 
 Este laboratorio permite:
 
@@ -207,7 +248,7 @@ Este laboratorio permite:
 
 ---
 
-## 👩‍💻 Autor
+##  Autor
 
 **Jaqueline Huahuaccapa Ccama**
 Ingeniería de Sistemas – UPeU
